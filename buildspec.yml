@@ -23,9 +23,11 @@ artifacts:
     index:
       files:
         - index.html
+      name: index
     all:
       files:
         - '**/*'
+      name: all
 
 cache:
   paths:

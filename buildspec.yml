@@ -16,8 +16,14 @@ phases:
       - npx gatsby build
 
 artifacts:
-  files:
-    - 'public/**/*'
+  base-directory: public
+  secondary-artifacts:
+    index:
+      files:
+        - index.html
+    all:
+      files:
+        - '**/*'
 
 cache:
   paths:

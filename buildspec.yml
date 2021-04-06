@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14.x
+  
+  pre_build:
+    commands:
+      - npm install
+      - npx gatsby telemetry --disable
+  
+  build:
+    commands:
+      - npx gatsby build
+
+artifacts:
+  files:
+    - 'public/**/*'
+
+cache:
+  paths:
+    - 'node_modules/**/*'
+    - '.cache/**/*'
+    - '/root/.npm/**/*'

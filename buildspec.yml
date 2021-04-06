@@ -7,7 +7,7 @@ phases:
   
   pre_build:
     commands:
-      - aws codeartifact login --tool npm --domain ${CODEARTIFACT_DOMAIN} --repository ${CODEARTIFACT_REPO}
+      - aws codeartifact login --tool npm --domain "${CODEARTIFACT_DOMAIN}" --repository "${CODEARTIFACT_REPO}" --endpoint-url "${CODEARTIFACT_ENDPOINT}"
       - npm install
       - npx gatsby telemetry --disable
   

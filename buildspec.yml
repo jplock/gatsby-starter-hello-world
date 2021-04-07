@@ -28,5 +28,6 @@ artifacts:
 
 cache:
   paths:
+    - 'public/**/*'
     - '.cache/**/*'
     - '/root/.npm/**/*'

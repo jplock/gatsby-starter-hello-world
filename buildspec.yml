@@ -9,13 +9,17 @@ phases:
     commands:
       - aws codeartifact login --tool npm --duration-seconds 0 --domain "${CODEARTIFACT_DOMAIN}" --repository "${CODEARTIFACT_REPO}" --endpoint-url "${CODEARTIFACT_ENDPOINT}" #--namespace examplecompany
       - npm ci --no-fund
-      - npx gatsby telemetry --disable
-  
+      - npx gatsby info
   build:
     commands:
-      - npx gatsby build
+      - npx gatsby build --no-color
+  post_build:
+    commands:
+      - npm list --parseable --long | awk -F':' '{print $2;}' | sort | uniq > deps.txt
 
 artifacts:
+  files:
+    - deps.txt
   secondary-artifacts:
     index:
       base-directory: public

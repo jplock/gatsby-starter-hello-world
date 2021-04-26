@@ -15,10 +15,11 @@ phases:
       - npx gatsby build --no-color
   post_build:
     commands:
-      - npm list --parseable --long | awk -F':' '{print $2;}' | sort | uniq > deps.txt
+      - npm list --parseable --long | awk -F':' '{print $2;}' | uniq | sort > deps.txt
 
 artifacts:
   files:
+    - public/page-data/app-data.json
     - deps.txt
   secondary-artifacts:
     index:

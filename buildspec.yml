@@ -18,9 +18,6 @@ phases:
       - npm list --parseable --long | awk -F':' '{print $2;}' | uniq | sort > deps.txt
 
 artifacts:
-  files:
-    - public/page-data/app-data.json
-    - deps.txt
   secondary-artifacts:
     index:
       base-directory: public
@@ -30,6 +27,10 @@ artifacts:
       base-directory: public
       files:
         - '**/*'
+    deps:
+      files:
+        - public/page-data/app-data.json
+        - deps.txt
 
 cache:
   paths:

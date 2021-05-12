@@ -4,7 +4,8 @@ phases:
   install:
     runtime-versions:
       nodejs: latest
-  
+    commands:
+      - printenv
   pre_build:
     commands:
       - aws codeartifact login --tool npm --duration-seconds 0 --domain "${CODEARTIFACT_DOMAIN}" --repository "${CODEARTIFACT_REPO}" --endpoint-url "${CODEARTIFACT_ENDPOINT}" #--namespace examplecompany
@@ -15,6 +16,7 @@ phases:
       - npx gatsby build --no-color
   post_build:
     commands:
+      - jq '{name: .name, version: .version, git_hash: "${CODEBUILD_SOURCE_VERSION}", build_id: "${CODEBUILD_BUILD_ID}", build_number: "${CODEBUILD_BUILD_NUMBER}", start_ts: "${CODEBUILD_START_TIME}"}' package.json > metadata.json
       - npm list --parseable --long | awk -F':' '{print $2;}' | sort | uniq > deps.txt
 
 artifacts:
@@ -29,7 +31,7 @@ artifacts:
         - '**/*'
     deps:
       files:
-        - public/page-data/app-data.json
+        - metadata.json
         - deps.txt
 
 cache:

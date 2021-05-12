@@ -16,7 +16,8 @@ phases:
       - npx gatsby build --no-color
   post_build:
     commands:
-      - jq '{name: .name, version: .version, git_hash: "${CODEBUILD_SOURCE_VERSION}", build_id: "${CODEBUILD_BUILD_ID}", build_number: "${CODEBUILD_BUILD_NUMBER}", start_ts: "${CODEBUILD_START_TIME}"}' package.json > metadata.json
+      - |-
+        jq '{name: .name, version: .version, git_hash: "${CODEBUILD_SOURCE_VERSION}", build_id: "${CODEBUILD_BUILD_ID}", build_number: "${CODEBUILD_BUILD_NUMBER}", start_ts: "${CODEBUILD_START_TIME}"}' package.json > metadata.json
       - npm list --parseable --long | awk -F':' '{print $2;}' | sort | uniq > deps.txt
 
 artifacts:
